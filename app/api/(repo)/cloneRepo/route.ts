@@ -14,7 +14,12 @@ export async function POST(req: NextRequest) {
   try {
 
     const { repo } = await req.json();
-
+   if(repo === ""){
+     return NextResponse.json(
+        { success: false, message: "Please Enter Github Url" },
+        { status: 400 }
+      );
+   }
     if (!repo || !repo.startsWith("https://github.com/")) {
       return NextResponse.json(
         { success: false, message: "Invalid GitHub URL" },

@@ -12,7 +12,7 @@
 
 # testing
 /coverage
-
+tmpRepos
 # next.js
 /.next/
 /out/

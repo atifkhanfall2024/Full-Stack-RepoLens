@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {ToastContainer} from 'react-toastify'
 import Sidebar from "@/component/sidebar/side"
 import Right from "@/component/rightside/rigside"
 
@@ -41,7 +42,17 @@ export default function RootLayout({
 
           {/* Right Sidebar */}
           <Right />
-
+         <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         </div>
       </body>
     </html>

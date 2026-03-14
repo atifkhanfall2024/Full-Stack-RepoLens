@@ -1,8 +1,9 @@
+import Header from '../../component/Header/nav'
 const Dashboard = ()=>{
 
     return(
-         <div className="p-6">
-      <h1>This is Dashboard</h1>
+         <div>
+        <Header/>
     </div>
     )
 }

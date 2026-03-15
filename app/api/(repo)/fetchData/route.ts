@@ -1,6 +1,6 @@
 import { METHODS } from "http";
 import { NextRequest, NextResponse } from "next/server";
-
+import ConnectDb from "@/app/lib/db";
 
 type User = {
     Query:string
@@ -14,7 +14,7 @@ export async function POST(req:NextRequest) {
         if(!Query || Query === ""){
             return NextResponse.json({message:"USer Query Must Required"} , {status:401})
         }
-
+      await ConnectDb()
         // here i were fetch api of python 
       const pythonAPI = "http://127.0.0.1:8000/retrieval/data";
     const response = await fetch(pythonAPI, {

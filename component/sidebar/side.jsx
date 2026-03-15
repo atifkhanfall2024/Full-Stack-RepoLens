@@ -1,4 +1,8 @@
+'use client'
+import { useRouter } from "next/navigation";
 export default function Sidebar() {
+
+const route=useRouter()
   return (
     <div className="w-[250px] h-screen bg-white border-r flex flex-col justify-between fixed">
       
@@ -14,17 +18,17 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <div className="mt-6 px-3">
-          <p className="text-xs text-black font-semibold px-3 mb-2">
+          <p className="text-xs text-black font-semibold px-3 mb-2" >
             NAVIGATION
           </p>
 
           <div className="flex flex-col text-black gap-1">
-            <button className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-100 text-gray-900 font-medium">
+            <button className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-100 text-gray-900 font-medium" onClick={()=>route.push("/dashboard")}>
               <span>📊</span>
               Dashboard
             </button>
 
-            <button className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 text-black">
+            <button className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 text-black" onClick={()=>route.push("/myrepos")}>
               <span>📁</span>
               My Repos
             </button>

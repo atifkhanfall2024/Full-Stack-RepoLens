@@ -2,6 +2,7 @@ import crypto from "crypto";
 import path from "path";
 import fs from "fs-extra";
 import { NextResponse } from "next/server";
+import ConnectDb from "@/app/lib/db";
 
 export const runtime = "nodejs";
 
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
         formToPython.append("files", blob, relativePath); // preserve filename and folder
       }
     }
-
+      await ConnectDb()
     const pythonAPI = "http://127.0.0.1:8000/Rag/data";
     const response = await fetch(pythonAPI, {
       method: "POST",

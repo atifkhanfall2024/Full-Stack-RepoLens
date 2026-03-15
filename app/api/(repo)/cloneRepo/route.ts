@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import simpleGit from "simple-git";
 import path from "path";
 import crypto from "crypto";
+import ConnectDb from "@/app/lib/db";
 
 type Data = {
   success: boolean;
@@ -69,7 +70,7 @@ export async function POST(req: NextRequest) {
 
     // read repo files
     await walk(tempDir);
-
+    await ConnectDb()
     // send to FastAPI
     const response = await fetch("http://127.0.0.1:8000/Rag/data", {
       method: "POST",

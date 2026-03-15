@@ -3,7 +3,7 @@ import Chat from "../../component/chatSection/chat"
 const Dashboard = ()=>{
 
     return(
-         <div>
+         <div className='bg-white'>
         <Header/>
         <Chat/>
     </div>

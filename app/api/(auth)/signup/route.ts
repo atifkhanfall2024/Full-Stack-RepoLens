@@ -5,6 +5,7 @@ import { HashPassward , Comparepass } from '@/helpers/bcrypt/bc'
 import crypto from 'crypto'
 import UserModel from "@/app/models/user";
 import { sendOtpEmail } from "@/helpers/sendmail";
+import { createOtpSession } from "@/helpers/token";
 
 export async function POST(req:NextRequest) {
     
@@ -37,6 +38,7 @@ export async function POST(req:NextRequest) {
          Otp:HashOtp,
           OtpExpiry:new Date(Date.now() + 2 * 60 * 1000)
    })
+     createOtpSession(email)
       return NextResponse.json({message:`${fullName} Check Your Email and Verify Account`})
    } catch (error) {
    return NextResponse.json({message:error || "Something went wrong"} , {status:400})

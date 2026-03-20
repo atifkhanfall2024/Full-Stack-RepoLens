@@ -1,5 +1,5 @@
-import Header from '../../component/Header/nav'
-import Chat from "../../component/chatSection/chat"
+import Header from '../../../component/Header/nav'
+import Chat from "../../../component/chatSection/chat"
 const Dashboard = ()=>{
 
     return(

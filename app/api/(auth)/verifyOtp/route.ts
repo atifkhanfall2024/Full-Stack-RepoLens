@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import UserModel from "@/app/models/user";
 import ConnectDb from "@/app/lib/db";
+import { Comparepass } from "@/helpers/bcrypt/bc";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     // 1. Get token from cookie
     const token = req.cookies.get("otp_session")?.value;
-
+     //console.log(token);
     if (!token) {
       return NextResponse.json(
         { success: false, message: "Session expired" },
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
     // 2. Verify token
     let decoded: any;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+      decoded = jwt.verify(token, process.env.JWT_SECRET as any);
     } catch (err) {
       return NextResponse.json(
         { success: false, message: "Invalid or expired session" },
@@ -49,9 +50,15 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
+    //console.log(user.Otp);
+    const userOtp = user.Otp;
+   //console.log(userOtp);
+if (!userOtp) {
+  throw new Error("OTP missing");
+}
+    const CompareOtp = await Comparepass(otp , userOtp)
     // 5. Check OTP match
-    if (user.Otp !== otp) {
+    if (!CompareOtp) {
       return NextResponse.json(
         { success: false, message: "Invalid OTP" },
         { status: 400 }

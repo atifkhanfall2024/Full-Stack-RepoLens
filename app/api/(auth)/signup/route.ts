@@ -29,7 +29,7 @@ export async function POST(req:NextRequest) {
 
    // send otp
 
-   await sendOtpEmail(email , RandomOtp)
+ 
  
    await UserModel.create({
           fullName , 
@@ -38,8 +38,18 @@ export async function POST(req:NextRequest) {
          Otp:HashOtp,
           OtpExpiry:new Date(Date.now() + 2 * 60 * 1000)
    })
-     createOtpSession(email)
-      return NextResponse.json({message:`${fullName} Check Your Email and Verify Account`})
+     await sendOtpEmail(email , RandomOtp)
+    const token =  createOtpSession(email)
+   const response =  NextResponse.json({message:`${fullName} Check Your Email and Verify Account`})
+   
+    // ✅ Set cookie properly
+    response.cookies.set("otp_session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60, // seconds (important!)
+    });
+    return response
    } catch (error) {
    return NextResponse.json({message:error || "Something went wrong"} , {status:400})
    }

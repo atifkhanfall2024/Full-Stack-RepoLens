@@ -1,8 +1,8 @@
 import { transporter } from "@/app/lib/mailer";
 export const sendOtpEmail = async (email: string, otp: string) => {
-    console.log(email);
-    console.log(process.env.EMAIL_USER);
-    console.log(otp);
+    //console.log(email);
+    //console.log(process.env.EMAIL_USER);
+    //console.log(otp);
   await transporter.sendMail({
     from: `"Your REPOLENS APP" <${process.env.EMAIL_USER}>`,
     to: email,
